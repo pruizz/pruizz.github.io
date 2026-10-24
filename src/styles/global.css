@@ -146,10 +146,11 @@ h1, h2, h3, p { margin: 0; }
 
 /* about */
 .about { flex-direction: row; align-items: center; gap: 80px; }
-.about-photo { width: 400px; height: 400px; flex: none; border-radius: 14px; object-fit: cover; }
+/* the illustration is already a circle on a black square: clip to the circle so only the picture shows */
+.about-photo { width: 400px; height: 400px; flex: none; border-radius: 50%; object-fit: cover; }
 .about-bio { flex: 1; display: flex; flex-direction: column; gap: 24px; }
 @media (max-width: 1199.98px) { .about { gap: 32px; } .about-photo { width: 280px; height: 280px; } }
-@media (max-width: 809.98px) { .about { flex-direction: column; align-items: flex-start; } .about-photo { width: 100%; max-width: 400px; height: 350px; } }
+@media (max-width: 809.98px) { .about { flex-direction: column; align-items: flex-start; } .about-photo { width: 100%; max-width: 350px; height: auto; aspect-ratio: 1; } }
 
 /* stack */
 .stack { gap: 32px; }
