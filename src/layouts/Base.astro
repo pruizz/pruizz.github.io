@@ -1,0 +1,96 @@
+---
+import "../styles/global.css"
+import AsciiProgress from "../components/AsciiProgress"
+import AsciiHorizon from "../components/AsciiHorizon"
+import AsciiRule from "../components/AsciiRule"
+import AsciiSignature from "../components/AsciiSignature"
+import ScrambleText from "../components/ScrambleText"
+import Icon from "../components/Icon.astro"
+import { ClientRouter } from "astro:transitions"
+
+interface Props { title?: string; description?: string }
+const {
+    title = "Pablo Ruiz Uroz — Software Developer",
+    description = "Software developer based in Madrid. Selected work across full-stack applications, distributed systems, cloud infrastructure and C.",
+} = Astro.props
+const email = "lttpablo@2m5.es"
+const github = "https://github.com/pruizz"
+const linkedin = "https://www.linkedin.com/in/pablo-ruiz-uroz/"
+---
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="icon" href="/images/avatar.png" />
+        <ClientRouter />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght,CRSV,SHRP@100..900,0..1,0..100&family=JetBrains+Mono:wght@400;500&display=swap" />
+    </head>
+    <body>
+        <header class="nav" transition:persist>
+            <div class="nav-inner">
+                <a class="brand" href="/"><img class="avatar" src="/images/avatar.png" alt="" />Pablo Ruiz Uroz</a>
+                <nav class="nav-links" aria-label="Main navigation">
+                    <a href="/#experience">Experience</a>
+                    <a href="/#work">Work</a>
+                    <a href="/#about">About</a>
+                    <a href="/#stack">Stack</a>
+                    <a href="/#contact">Contact</a>
+                </nav>
+                <div class="nav-progress"><AsciiProgress client:idle cells={12} fontSize={12} ink="#F3F3F7" dim="#4A4B5A" accent="#F9B73F" /></div>
+            </div>
+        </header>
+
+        <main><slot /></main>
+
+        <footer class="footer" transition:persist>
+            <section class="contact-panel" id="contact">
+                <div class="scene"><AsciiHorizon client:visible scene="sierra" copy="contact" cell={6} caption column={1120} style={{ width: "100%", height: "100%" }} /></div>
+                <div class="copy-column contact-copy" data-reveal>
+                    <ScrambleText client:visible text="06 / Contact" fontSize={13} letterSpacing={0.08} uppercase color="#A6A7B0" accent="#F9B73F" duration={0.9} />
+                    <h2 class="t-title">Let’s get in touch</h2>
+                    <p class="t-body c-soft">Have a role or project in mind? Let’s talk.</p>
+                    <a class="btn btn-primary" href={`mailto:${email}`}>Send an email <Icon name="up-right" /></a>
+                    <a class="t-light u-link" href={`mailto:${email}`} style="align-self:flex-start">{email}</a>
+                </div>
+            </section>
+            <div class="footer-inner">
+                <AsciiRule client:visible color="#3E4160" accent="#F9B73F" fontSize={12} duration={1.1} />
+                <div class="footer-nav">
+                    <div class="footer-id">
+                        <div class="footer-name"><img class="avatar" src="/images/avatar.png" alt="" /><span class="t-body c-bright w-500">Pablo Ruiz Uroz</span></div>
+                        <p class="t-small c-soft" style="max-width:280px">Software engineer working across<br />full-stack products and applied AI.</p>
+                        <a class="t-small u-link" style="align-self:flex-start;color:var(--ink)" href={`mailto:${email}`}>{email}</a>
+                    </div>
+                    <div class="footer-col t-small" style="width:150px;color:var(--ink)">
+                        <a href="/#experience">Experience</a><a href="/#work">Projects</a><a href="/#about">About</a><a href="/#contact">Contact</a>
+                    </div>
+                    <div class="footer-col t-small" style="width:110px;color:var(--ink)">
+                        <a class="u-link" href={github}>GitHub</a><a class="u-link" href={linkedin}>LinkedIn</a>
+                    </div>
+                </div>
+                <p class="t-small">Pablo Ruiz Uroz · Madrid, Spain</p>
+                <AsciiSignature client:visible text="PABLO RUIZ" fontFamily="Geologica" fontWeight={700} cell={9} ink="#C9CAD4" dim="#3A3B4A" accent="#F9B73F" />
+            </div>
+        </footer>
+
+        <script>
+            // Entrance motion: on-mount items reveal right away, the rest when they scroll into view (once).
+            // Runs on every page, including those reached through the client router.
+            document.addEventListener("astro:page-load", () => {
+                const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches
+                const all = document.querySelectorAll<HTMLElement>("[data-reveal]:not(.in), .zoom-in:not(.in)")
+                if (reduce) { all.forEach((el) => el.classList.add("in")); return }
+                const io = new IntersectionObserver((entries) => {
+                    for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target) }
+                }, { threshold: 0.12 })
+                // a timer, not rAF: rAF never fires in a background tab, which would leave the hero invisible
+                all.forEach((el) => (el.dataset.reveal === "mount" ? setTimeout(() => el.classList.add("in"), 30) : io.observe(el)))
+            })
+        </script>
+    </body>
+</html>

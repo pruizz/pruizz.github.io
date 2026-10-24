@@ -1,0 +1,34 @@
+---
+import Base from "../../layouts/Base.astro"
+import Icon from "../../components/Icon.astro"
+import projects from "../../data/projects.json"
+
+export function getStaticPaths() {
+    return projects.map((p, i) => ({ params: { slug: p.slug }, props: { p, prev: projects[i - 1], next: projects[i + 1] } }))
+}
+const { p, prev, next } = Astro.props
+---
+<Base title={`${p.title} — Pablo Ruiz Uroz`} description={p.summary}>
+    <article class="case">
+        <div class="case-inner">
+            <a class="back t-small" href="/#work" data-reveal="mount"><Icon name="left" /> All projects</a>
+            <p class="t-kicker" data-reveal="mount" style="--delay:0.05s">{p.discipline}</p>
+            <h1 class="t-title" data-reveal="mount" style="--delay:0.1s">{p.title}</h1>
+            <p class="t-lead" data-reveal="mount" style="--delay:0.18s">{p.summary}</p>
+            <div class="meta" data-reveal="mount" style="--delay:0.26s">
+                <div><span class="t-kicker">Role</span><p class="t-small c-chip">{p.role}</p></div>
+                <div><span class="t-kicker">Stack</span><p class="t-small c-chip">{p.stack}</p></div>
+                <div><span class="t-kicker">Source</span><a class="source t-small c-bright" href={p.source} target="_blank" rel="noopener">GitHub repository <Icon name="up-right" small /></a></div>
+            </div>
+            <img class="cover" src={p.cover.file} alt={p.cover.alt} transition:name={`cover-${p.slug}`} />
+            <p class="t-small">{p.caption}</p>
+            <div class="prose">
+                {p.body.map((b) => (b.tag === "h2" ? <h2 class="t-section" data-reveal>{b.text}</h2> : <p class="t-body" data-reveal>{b.text}</p>))}
+            </div>
+            <nav class="pager" aria-label="More projects">
+                {prev && <a href={`/work/${prev.slug}`}><span class="pager-label t-kicker"><Icon name="left" small /> Previous</span><span class="t-project c-bright">{prev.title}</span></a>}
+                {next && <a class="next" href={`/work/${next.slug}`}><span class="pager-label t-kicker">Next <Icon name="right" small /></span><span class="t-project c-bright">{next.title}</span></a>}
+            </nav>
+        </div>
+    </article>
+</Base>

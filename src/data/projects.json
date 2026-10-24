@@ -1,0 +1,186 @@
+[
+  {
+    "slug": "infracture-local",
+    "title": "Infracture Local",
+    "discipline": "01 / BACHELOR’S THESIS · DISTRIBUTED SYSTEMS",
+    "summary": "A distributed-systems experimentation platform. Java and Spring Boot APIs, a React interface, Docker orchestration and controlled failure scenarios.",
+    "stack": "Java · Spring Boot · React · PostgreSQL · Docker",
+    "role": "Independent developer · Requirements, architecture, implementation and validation",
+    "caption": "Interface design study from the Infracture project.",
+    "source": "https://github.com/codeurjc-students/2026-INFRACTURE",
+    "cover": {
+      "file": "/images/infracture-local.png",
+      "alt": "Interface design study from the Infracture project."
+    },
+    "body": [
+      {
+        "tag": "h2",
+        "text": "Make distributed systems tangible."
+      },
+      {
+        "tag": "p",
+        "text": "Infracture Local turns a service topology into an experiment. I designed and built a visual workspace where students can connect services, launch isolated Docker environments and inspect what changes when a dependency slows down or fails."
+      },
+      {
+        "tag": "h2",
+        "text": "From canvas to controlled execution"
+      },
+      {
+        "tag": "p",
+        "text": "The React and TypeScript editor connects to a modular Java 21 and Spring Boot backend. PostgreSQL stores the application data, Flyway manages schema changes, and immutable execution snapshots preserve the scenario used for each run. Live logs and metrics arrive through Server-Sent Events."
+      },
+      {
+        "tag": "h2",
+        "text": "Engineering decisions"
+      },
+      {
+        "tag": "p",
+        "text": "A controlled component catalogue bounds what can run on the host. Separating scenario design from execution keeps experiments reproducible, while dependency-impact analysis helps explain how a local change can affect the wider system. The local platform is a complete thesis in its own right, with Cloud treated as a separate project."
+      },
+      {
+        "tag": "h2",
+        "text": "Quality and ownership"
+      },
+      {
+        "tag": "p",
+        "text": "I owned the work from requirements to validation, documenting decisions and delivering scoped changes through GitHub issues and pull requests. The validation approach combines unit, integration, API and browser testing with JUnit, Mockito, Testcontainers, REST Assured, Vitest and Playwright, supported by GitHub Actions and SonarQube Cloud."
+      }
+    ]
+  },
+  {
+    "slug": "infracture-cloud",
+    "title": "Infracture Cloud",
+    "discipline": "02 / BACHELOR’S THESIS · CLOUD ENGINEERING",
+    "summary": "The cloud extension of Infracture. Repeatable AWS environments, infrastructure as code, container orchestration and observability.",
+    "stack": "AWS · Kubernetes · CloudFormation · Docker · CI/CD · Observability",
+    "role": "Independent developer · Cloud architecture, infrastructure as code and delivery",
+    "caption": "Conceptual architecture illustration for the completed-project portfolio scenario.",
+    "source": "https://github.com/codeurjc-students/2026-INFRACTURE",
+    "cover": {
+      "file": "/images/infracture-cloud.svg",
+      "alt": "Conceptual architecture illustration for Infracture Cloud."
+    },
+    "body": [
+      {
+        "tag": "h2",
+        "text": "A second thesis. A different systems problem."
+      },
+      {
+        "tag": "p",
+        "text": "Infracture Cloud extends the experimentation model into AWS. I built a repeatable cloud deployment workflow around declarative infrastructure, container orchestration and observability, carrying the local platform’s controlled failure experiments into a cloud environment."
+      },
+      {
+        "tag": "h2",
+        "text": "Infrastructure as part of the product"
+      },
+      {
+        "tag": "p",
+        "text": "CloudFormation describes the environment, while Docker and Kubernetes provide the application’s deployment and orchestration layer. The work connects deployment, isolation and runtime visibility so that a scenario can be studied beyond a single local host."
+      },
+      {
+        "tag": "h2",
+        "text": "What this project demonstrates"
+      },
+      {
+        "tag": "p",
+        "text": "The focus is the transition from application engineering to cloud operations: repeatable environments, continuous delivery, live logs and metrics, and recovery experiments. It complements Infracture Local without combining both theses into one deliverable."
+      },
+      {
+        "tag": "h2",
+        "text": "Project reference"
+      },
+      {
+        "tag": "p",
+        "text": "The linked Infracture repository provides the project’s shared context. This case study follows the completed 2027 scenario prepared for my portfolio; the linked repository may reflect an earlier development stage."
+      }
+    ]
+  },
+  {
+    "slug": "dsgram",
+    "title": "DSGram",
+    "discipline": "03 / TEAM PROJECT · FULL-STACK DEVELOPMENT",
+    "summary": "A social learning application built by a team of four. My work covered JWT authentication, user APIs, React flows, API documentation and Docker.",
+    "stack": "Java · Spring Boot · React · TypeScript · MySQL · Docker",
+    "role": "Team of four · Authentication, users, React flows and deployment",
+    "caption": "Project interface study from the DSGram repository.",
+    "source": "https://github.com/pruizz/DSGram",
+    "cover": {
+      "file": "/images/dsgram.png",
+      "alt": "Project interface study from the DSGram repository."
+    },
+    "body": [
+      {
+        "tag": "h2",
+        "text": "Learning through a working product"
+      },
+      {
+        "tag": "p",
+        "text": "DSGram is a social learning application for data structures. Users explore exercises, publish solutions, organise lists and follow other learners. I worked with three teammates across the Spring Boot backend and React frontend."
+      },
+      {
+        "tag": "h2",
+        "text": "My contribution"
+      },
+      {
+        "tag": "p",
+        "text": "I integrated JWT authentication and implemented user REST endpoints, including user management and following logic. I also worked on API documentation, a Postman collection, PDF export and the Docker configuration."
+      },
+      {
+        "tag": "h2",
+        "text": "Bringing the application into React"
+      },
+      {
+        "tag": "p",
+        "text": "My frontend work covered sign-in, sign-up, profile and administration flows, registration feedback, route-level access checks, shared user state with Zustand and error handling. I configured the application build and the Spring Boot backend to serve the SPA."
+      },
+      {
+        "tag": "h2",
+        "text": "Collaboration and evidence"
+      },
+      {
+        "tag": "p",
+        "text": "The repository documents individual contributions and links to the corresponding commits. The important result is an integrated team application spanning identity, data, interface states and containerised delivery."
+      }
+    ]
+  },
+  {
+    "slug": "minishell",
+    "title": "MiniShell",
+    "discipline": "04 / TEAM PROJECT · SYSTEMS PROGRAMMING",
+    "summary": "A C shell built with POSIX APIs. Concurrent pipelines, I/O redirection, job control and signal handling.",
+    "stack": "C · Linux · POSIX · fork · exec · pipe · dup2",
+    "role": "Co-developer with Hugo Capa Mora · Operating systems project",
+    "caption": "Illustration of supported shell features, not a recorded execution.",
+    "source": "https://github.com/pruizz/MiniShell-C",
+    "cover": {
+      "file": "/images/minishell.svg",
+      "alt": "Illustration of supported MiniShell features, not a recorded execution."
+    },
+    "body": [
+      {
+        "tag": "h2",
+        "text": "Working close to the operating system"
+      },
+      {
+        "tag": "p",
+        "text": "MiniShell is a command interpreter built in C for an operating systems course. It executes external programs, connects them through pipelines and supports input, output and error redirection."
+      },
+      {
+        "tag": "h2",
+        "text": "Processes, descriptors and signals"
+      },
+      {
+        "tag": "p",
+        "text": "The implementation uses POSIX process and file-descriptor APIs, including fork, exec, pipe and dup2. Background jobs and signal handling distinguish the shell process from the commands it starts."
+      },
+      {
+        "tag": "h2",
+        "text": "Small interface, important details"
+      },
+      {
+        "tag": "p",
+        "text": "Built-in commands include cd, exit, jobs, bg and umask. The project made resource ownership, process lifecycles and foreground/background behaviour concrete. I developed it with Hugo Capa Mora; the repository credits both authors."
+      }
+    ]
+  }
+]

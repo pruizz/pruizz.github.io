@@ -1,0 +1,146 @@
+---
+import Base from "../layouts/Base.astro"
+import AsciiHorizon from "../components/AsciiHorizon"
+import ScrambleText from "../components/ScrambleText"
+import SectionHeader from "../components/SectionHeader.astro"
+import Icon from "../components/Icon.astro"
+import projects from "../data/projects.json"
+
+const words = (s: string) => s.split(" ")
+const heading = [["Software engineer building", false], ["full-stack products and", false], ["AI-powered systems.", true]] as const
+let w = 0 // running word index for the staggered headline
+const stack: [string, string[]][] = [
+    ["Languages", ["Java", "TypeScript", "JavaScript", "Python", "C", "Scala", "Haskell", "HTML", "CSS"]],
+    ["Backend & data", ["Spring Boot", "Node.js", "Express", "PostgreSQL", "MySQL", "MongoDB", "Redis", "RabbitMQ"]],
+    ["Frontend", ["React", "Angular", "Vite", "Bootstrap"]],
+    ["Cloud & DevOps", ["AWS", "CloudFormation", "Kubernetes", "Docker", "GitHub Actions", "Linux", "Bash", "Git"]],
+    ["AI", ["Agentforce", "RAG", "AI agents & tool actions"]],
+    ["Testing", ["JUnit", "Mockito", "Testcontainers", "REST Assured", "Playwright", "Vitest", "Postman"]],
+]
+const bullets = [
+    "Built Agentforce demos and proofs of concept combining AI agents, tool actions, automation and integrations with CRM and enterprise data.",
+    "Designed RAG workflows to ground agent responses in business data and knowledge, incorporating access controls and reviewing generated outputs.",
+    "Translated customer requirements into solution architectures with sales and engineering teams, explaining security considerations and technical trade-offs.",
+]
+const stagger = (i: number) => `transition-delay:${(0.15 + i * 0.05).toFixed(2)}s`
+---
+<Base>
+    <section class="hero">
+        <div class="hero-panel">
+            <div class="scene"><AsciiHorizon client:load scene="towers" copy="hero" cell={6} caption column={1120} style={{ width: "100%", height: "100%" }} /></div>
+            <div class="copy-column">
+                <div class="intro">
+                    <p class="greeting t-small" data-reveal="mount" style="--y:0px;--dur:0.01s">
+                        {words("Hello, I’m Pablo").map((x, i) => <span class="word" style={`transition-delay:${(0.05 + i * 0.05).toFixed(2)}s`}>{x + " "}</span>)}<span>👋</span>
+                    </p>
+                    <h1 class="t-title" data-reveal="mount" style="--y:0px;--dur:0.01s">
+                        {heading.map(([line, dim], li) => (
+                            <>
+                                <span class={dim ? "h1-dim" : ""}>{words(line).map((x) => <span class="word" style={stagger(w++)}>{x + " "}</span>)}</span>
+                                {li < 2 && <br />}
+                            </>
+                        ))}
+                    </h1>
+                    <p class="t-body intro-desc" data-reveal="mount" style="--y:8px;--delay:0.5s">Solutions Engineer Intern at Salesforce.<br />Java, distributed systems, Agentforce and RAG.</p>
+                    <div class="availability" data-reveal="mount" style="--y:8px;--delay:0.6s"><span class="availability-dot"></span><span class="t-small c-soft">Open to software engineering roles</span></div>
+                    <div class="actions" data-reveal="mount" style="--y:8px;--delay:0.7s">
+                        <a class="btn btn-primary" href="mailto:lttpablo@2m5.es">Get in touch <Icon name="up-right" /></a>
+                        <a class="btn btn-ghost" href="https://github.com/pruizz" target="_blank" rel="noopener">GitHub <Icon name="up-right" /></a>
+                        <a class="btn btn-ghost" href="https://www.linkedin.com/in/pablo-ruiz-uroz/" target="_blank" rel="noopener">LinkedIn <Icon name="up-right" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="experience">
+        <div class="inner exp">
+            <SectionHeader index="01 / Experience" title="What I’m working on" />
+            <div class="feature" data-reveal>
+                <div class="feature-left">
+                    <img class="feature-logo" src="/images/salesforce.svg" alt="Salesforce" />
+                    <h3 class="t-project">Salesforce</h3>
+                    <p class="t-body c-bright">Solutions Engineer Intern</p>
+                    <p class="t-small c-soft">Madrid, Spain<br />June 2026 – present</p>
+                </div>
+                <div class="feature-right">
+                    <h3 class="t-project">Agentforce and RAG</h3>
+                    {bullets.map((b) => <div class="bullet"><span class="bullet-mark t-body">•</span><p class="t-body c-bright">{b}</p></div>)}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="work">
+        <div class="inner work">
+            <SectionHeader index="02 / Work" title="Selected projects">
+                <a class="github-link t-small c-bright" href="https://github.com/pruizz" target="_blank" rel="noopener">All projects on GitHub <Icon name="up-right" small /></a>
+            </SectionHeader>
+            <div class="project-index">
+                {[projects.slice(0, 2), projects.slice(2, 4)].map((row) => (
+                    <div class="grid">
+                        {row.map((p) => (
+                            <article class="card" data-reveal style="--y:20px;--dur:0.65s;--curve:cubic-bezier(0.22,1,0.36,1)">
+                                <a class="card-media zoom-in" href={`/work/${p.slug}`} aria-label={p.title}><img src={p.cover.file} alt={p.cover.alt} loading="lazy" transition:name={`cover-${p.slug}`} /></a>
+                                <div class="card-info">
+                                    <a class="card-title t-project" href={`/work/${p.slug}`}><h3 class="t-project" style="color:inherit">{p.title}</h3></a>
+                                    <p class="t-body">{p.summary}</p>
+                                    <p class="t-small c-soft">{p.stack}</p>
+                                    <a class="card-cta t-small" href={`/work/${p.slug}`}>Read case study</a>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="inner about">
+            <img class="about-photo" src="/images/avatar.png" alt="Illustrated portrait of Pablo coding at night" />
+            <div class="about-bio" data-reveal>
+                <ScrambleText client:visible text="03 / About" fontSize={13} letterSpacing={0.08} uppercase color="#A6A7B0" accent="#F9B73F" duration={0.9} />
+                <h2 class="t-section">A developer across the stack.</h2>
+                <p class="t-body">I’m Pablo, a software developer based in Madrid. My background combines Computer Engineering and Software Engineering at Universidad Rey Juan Carlos.</p>
+                <p class="t-body">My work spans full-stack applications, operating-system fundamentals and distributed-systems experiments. At Salesforce, I build AI demos and proofs of concept with Agentforce, tool actions and RAG.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="stack">
+        <div class="inner stack">
+            <SectionHeader index="04 / Stack" title="My technology stack">
+                <p class="t-small">Spanish, native · English, B2</p>
+            </SectionHeader>
+            <div>
+                {stack.map(([label, items]) => (
+                    <div class="tech-row" data-reveal>
+                        <p class="tech-label t-body c-bright w-500">{label}</p>
+                        <div class="chips">{items.map((x, i) => <span class="chip t-small c-chip" style={`--i:${i}`}>{x}</span>)}</div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="education">
+        <div class="inner edu">
+            <SectionHeader index="05 / Education" title="My engineering foundation" />
+            <div class="edu-layout" data-reveal style="--y:16px;--delay:0.1s">
+                <div class="degree">
+                    <h3 class="t-project">Universidad Rey Juan Carlos</h3>
+                    <p class="t-body">Dual degree in Computer Engineering &amp; Software Engineering</p>
+                </div>
+                <div class="record">
+                    <ScrambleText client:visible text="8.34 / 10" fontSize={44} letterSpacing={-0.03} uppercase={false} color="#F3F3F7" accent="#F9B73F" duration={1.4} />
+                    <p class="t-small c-soft">Grade point average</p>
+                    <p class="t-body c-bright w-500">Highest Distinction</p>
+                    <p class="t-small c-soft">Distributed Systems</p>
+                    <p class="t-small c-soft">Web Application Development</p>
+                    <p class="t-small c-soft">Web Fundamentals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</Base>

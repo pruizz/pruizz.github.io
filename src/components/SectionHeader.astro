@@ -1,0 +1,17 @@
+---
+import ScrambleText from "./ScrambleText"
+import AsciiRule from "./AsciiRule"
+interface Props { index: string; title: string }
+const { index, title } = Astro.props
+const scramble = { fontSize: 13, letterSpacing: 0.08, uppercase: true, color: "#A6A7B0", accent: "#F9B73F", duration: 0.9 }
+---
+<div class="sec-head" data-reveal>
+    <div class="sec-head-row">
+        <div class="sec-head-left">
+            <ScrambleText client:visible text={index} {...scramble} />
+            <h2 class="t-section">{title}</h2>
+        </div>
+        <slot />
+    </div>
+    <AsciiRule client:visible color="#3E4160" accent="#F9B73F" fontSize={12} duration={1.1} />
+</div>
